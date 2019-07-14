@@ -1,0 +1,7 @@
+pembayaran 
+bayar 
+nilai 
+khs 
+krs 
+jadwal 
+ujian
