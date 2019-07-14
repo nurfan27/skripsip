@@ -2,7 +2,7 @@ package app
 
 import (
 	"log"
-	nlp "skripsi/nlp"
+	nlp "skripsip/nlp"
 )
 
 type UseCase struct {

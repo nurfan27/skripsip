@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
+	"log"
 	"net/http"
-	"skripsi/app"
+	"skripsip/app"
 )
 
 var (
@@ -15,7 +17,6 @@ func main() {
 
 	fmt.Println("starting web server at" + Env.Get("listen_port"))
 	http.ListenAndServe(":"+Env.Get("listen_port"), nil)
-
 }
 
 func index(w http.ResponseWriter, r *http.Request) {
@@ -27,16 +28,15 @@ func index(w http.ResponseWriter, r *http.Request) {
 	case "POST":
 		// Call ParseForm() to parse the raw query and update r.PostForm and r.Form.
 		if err := r.ParseForm(); err != nil {
-			fmt.Fprintf(w, "ParseForm() err: %v", err)
+			log.Printf("ParseForm() err: %v", err)
 			return
 		}
 
-		fmt.Fprintf(w, "Post from webhook! r.PostFrom = %v\n", r.PostForm)
+		log.Printf("Post from webhook! r.PostFrom = %v\n", r.PostForm)
 
-		request.From = r.PostFormValue("form")
-		request.To = r.PostFormValue("to")
-		request.Event = r.PostFormValue("event")
-		request.Text = r.PostFormValue("text")
+		reqFromWebhook := r.FormValue("data")
+
+		json.Unmarshal([]byte(reqFromWebhook), &request)
 
 		app.NewUseCase().Handle(request)
 		return
