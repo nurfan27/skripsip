@@ -28,7 +28,7 @@ func (r *Repository) Handle(params []string) string {
 
 	switch intent.IntentID {
 	case 1:
-		return ""
+		return r.findSpp()
 	case 2:
 		return r.findBriva()
 	case 3:
