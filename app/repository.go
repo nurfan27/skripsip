@@ -1,9 +1,5 @@
 package app
 
-import (
-	"fmt"
-)
-
 type Repository struct {
 	serviceSiakad   *SiakadService
 	serviceWhatsapp *WhatsappService
@@ -43,31 +39,6 @@ func (r *Repository) Handle(params []string) string {
 		return MESSAGE[STATUS_KNOWLEDGE_NOTFOUND]
 	}
 
-}
-
-func (r *Repository) findDospem() string {
-	resp := r.serviceSiakad.GetDospem(r.phoneNumber)
-
-	if resp.Status != 1 {
-		return MESSAGE[STATUS_ERROR_SYSTEM]
-	}
-
-	answer := fmt.Sprintf("Data dosen pembimbing akademik anda : \n\nNama :  %s \n\nNID :  %s \n\nNo.Tlp : %s \n", resp.Data.NamaDosen, resp.Data.Nid, resp.Data.TlpDosen)
-
-	return answer
-}
-
-func (r *Repository) findBriva() string {
-
-	resp := r.serviceSiakad.GetBriva(r.phoneNumber)
-
-	if resp.Status != 1 {
-		return MESSAGE[STATUS_ERROR_SYSTEM]
-	}
-
-	answer := fmt.Sprintf("nomer briva %s adalah %s", resp.Data.Nama, resp.Data.NomorBriva)
-
-	return answer
 }
 
 func (r *Repository) getIntents(query string) IntentDataset {
