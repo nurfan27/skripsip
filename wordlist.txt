@@ -5,3 +5,11 @@ khs
 krs 
 jadwal 
 ujian
+transkip
+briva
+uas
+uts
+pembimbing
+akademik
+dosen
+pa

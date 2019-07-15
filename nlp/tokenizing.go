@@ -1,7 +1,6 @@
 package nlp
 
 import (
-	"fmt"
 	"log"
 
 	"gopkg.in/jdkato/prose.v2"
@@ -22,7 +21,7 @@ func Tokenizing(params string) map[string]string {
 	// Iterasi doc's:
 	for _, val := range doc.Tokens() {
 		// bisa ambil tag dan label
-		fmt.Println(val.Text, val.Tag)
+		// fmt.Println(val.Text, val.Tag)
 		token[val.Text] = val.Tag
 	}
 

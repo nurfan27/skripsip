@@ -38,7 +38,20 @@ func index(w http.ResponseWriter, r *http.Request) {
 
 		json.Unmarshal([]byte(reqFromWebhook), &request)
 
-		app.NewUseCase().Handle(request)
+		msg := app.NewUseCase().Handle(request)
+
+		jsonInBytes, err := json.Marshal(msg)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+
+		log.Println("response : ")
+		log.Println(string(jsonInBytes))
+
+		w.Header().Set("Content-Type", "application/json")
+		w.Write(jsonInBytes)
+
 		return
 
 	default:

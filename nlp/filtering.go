@@ -19,14 +19,21 @@ func WordList(params map[string]string) []string {
 
 	for index, _ := range params {
 		for _, line := range lines {
-			// fmt.Println(i, line)
-			log.Println(index, line)
-			if strings.TrimSpace(index) == strings.TrimSpace(line) {
-				log.Println("sama bro ")
+			str1 := []rune(strings.TrimSpace(index))
+			str2 := []rune(strings.TrimSpace(line))
+
+			distance := levenshtein(str1, str2)
+
+			distancePercentage := float64(distance) / float64(len(index))
+			distancePercentage = distancePercentage * 100
+			// log.Println(line, "-", index)
+			// log.Println(distance, "-", len(index))
+			// log.Println(distancePercentage)
+
+			if distancePercentage <= 20 {
 				wordkey = append(wordkey, index)
 			}
 		}
-
 	}
 
 	return wordkey
