@@ -31,6 +31,8 @@ func WordList(params map[string]string) []string {
 			// log.Println(distancePercentage)
 
 			if distancePercentage <= 20 {
+				wordkey = append(wordkey, line)
+			} else if distancePercentage == 0 {
 				wordkey = append(wordkey, index)
 			}
 		}

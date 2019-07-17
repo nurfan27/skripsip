@@ -39,3 +39,29 @@ func (r *Repository) findSpp() string {
 
 	return answer
 }
+
+func (r *Repository) fetchTranskip() string {
+
+	resp := r.serviceSiakad.fetchTranskip(r.phoneNumber)
+
+	if resp.Status != 1 {
+		return MESSAGE[resp.Status]
+	}
+
+	answer := fmt.Sprintf("Anda dapat mendownload transkip pada link dibawah ini :\n\n  %s ", resp.Data)
+
+	return answer
+}
+
+func (r *Repository) fetchKhs() string {
+
+	resp := r.serviceSiakad.fetchTranskip(r.phoneNumber)
+
+	if resp.Status != 1 {
+		return MESSAGE[resp.Status]
+	}
+
+	answer := fmt.Sprintf("Anda dapat mendownload KHS pada link dibawah ini :\n\n  %s ", resp.Data)
+
+	return answer
+}

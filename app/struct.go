@@ -45,6 +45,16 @@ type SppResponse struct {
 	} `json:"data"`
 }
 
+type KHSResponse struct {
+	Status int    `json:"status"`
+	Data   string `json:"data"`
+}
+
+type TranskipResponse struct {
+	Status int    `json:"status"`
+	Data   string `json:"data"`
+}
+
 type WhatsappChatRequest struct {
 	From  string `json:"from"`
 	To    string `json:"to"`

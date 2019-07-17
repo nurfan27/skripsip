@@ -124,6 +124,64 @@ func (ss *SiakadService) GetSpp(phoneNumber string) SppResponse {
 	return response
 }
 
+func (ss *SiakadService) fetchTranskip(phoneNumber string) TranskipResponse {
+	var response TranskipResponse
+
+	log.Println("phone number : ")
+	log.Println(phoneNumber)
+
+	uri := ss.uri + "/transcript"
+	log.Println("URL : ", uri)
+
+	log.Println("ap_key")
+	log.Println(Env.Get("siakad_app_key"))
+
+	_, resp, errorResponse := gorequest.New().
+		Get(uri).
+		Set("app-key", Env.Get("siakad_app_key")).
+		Set("client-key", phoneNumber).
+		End()
+
+	log.Println("Response : ")
+	log.Println(resp)
+
+	if errorResponse != nil {
+		log.Println(errorResponse)
+	}
+
+	json.Unmarshal([]byte(resp), &response)
+	return response
+}
+
+func (ss *SiakadService) fetchKhs(phoneNumber string) KHSResponse {
+	var response KHSResponse
+
+	log.Println("phone number : ")
+	log.Println(phoneNumber)
+
+	uri := ss.uri + "/studycardresult"
+	log.Println("URL : ", uri)
+
+	log.Println("ap_key")
+	log.Println(Env.Get("siakad_app_key"))
+
+	_, resp, errorResponse := gorequest.New().
+		Get(uri).
+		Set("app-key", Env.Get("siakad_app_key")).
+		Set("client-key", phoneNumber).
+		End()
+
+	log.Println("Response : ")
+	log.Println(resp)
+
+	if errorResponse != nil {
+		log.Println(errorResponse)
+	}
+
+	json.Unmarshal([]byte(resp), &response)
+	return response
+}
+
 func NewSiakadService() *SiakadService {
 	var service SiakadService
 	service.uri = Env.Get("siakad_url_host")

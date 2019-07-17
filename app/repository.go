@@ -1,5 +1,10 @@
 package app
 
+import (
+	"log"
+	"strings"
+)
+
 type Repository struct {
 	serviceSiakad   *SiakadService
 	serviceWhatsapp *WhatsappService
@@ -25,6 +30,8 @@ func (r *Repository) Handle(params []string) string {
 
 	// get sentence
 	intent := r.getIntents(q)
+	log.Println("intent : ")
+	log.Println(intent)
 
 	switch intent.IntentID {
 	case 1:
@@ -32,9 +39,11 @@ func (r *Repository) Handle(params []string) string {
 	case 2:
 		return r.findBriva()
 	case 3:
-		return ""
+		return r.fetchTranskip()
 	case 4:
 		return r.findDospem()
+	case 6:
+		return r.fetchKhs()
 	default:
 		return MESSAGE[STATUS_KNOWLEDGE_NOTFOUND]
 	}
@@ -52,6 +61,7 @@ func (r *Repository) generateQuery(params []string) string {
 	where := " where 1=1 "
 
 	for _, param := range params {
+		param = strings.TrimSpace(param)
 		where += " AND sentence like \"%" + param + "%\" "
 	}
 

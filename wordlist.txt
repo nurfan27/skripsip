@@ -1,5 +1,6 @@
 pembayaran 
-bayar 
+bayar
+bayaran 
 nilai 
 khs 
 krs 
