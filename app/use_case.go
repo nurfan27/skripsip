@@ -31,10 +31,16 @@ func (uc *UseCase) Handle(request WhatsappChatRequest) WhatsappChatResponse {
 	// log.Println("caseFolding Result : ")
 	// log.Println(caseFoldingResult)
 
+	log.Println("caseFolding : ")
+	log.Println(caseFoldingResult)
+
 	// Proses Tokenizing
 	tokenizingResult := nlp.Tokenizing(caseFoldingResult)
 	// log.Println("Tokenizing Result : ")
 	// log.Println(tokenizingResult)
+
+	log.Println("tokennizing : ")
+	log.Println(tokenizingResult)
 
 	// Proses Filtering
 	filteringResult := nlp.WordList(tokenizingResult)
